@@ -1,0 +1,29 @@
+# Ruby
+
+require 'bigdecimal/math'
+
+@primes = [] # Prime Number's Array
+N = 100000 # Times, 10 Digits Max is 9999999999 => sqrt(10000000000) = N
+e = BigMath::E(10000).to_s # Napier's Constant
+
+# Eratosthenes
+def is_prime(n)
+  @primes.each do |d|
+    break if d * d > n
+    return 0 if n % d == 0
+  end
+  @primes.push(n)
+  return n
+end
+
+# Generation Prime Number
+(2 .. N).each{|i| is_prime(i)}
+
+# Prime Number Determination for Each 10 Digits of Napier Number
+counts = 0 # Number of Prime Numbers
+(N - 11).times do |i|
+  is_exist = FALSE # Can Divide(True) or Can't Divide(False)
+  @primes.map{|num| (is_exist = TRUE; break) if e[(i + 2) .. (i + 11)].to_i % num == 0}
+  (counts += 1; p e[(i + 2) .. (i + 11)], i) if !is_exist
+  break if counts == ARGV[0].to_i
+end
